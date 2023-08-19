@@ -131,3 +131,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_COOKIE_SECURE = True
 # settings.py
+CSRF_TRUSTED_ORIGINS = ['https://web-production-5d9e.up.railway.app']
