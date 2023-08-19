@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-kpxa#r62#ql#7uiwlr-)(ii2$&4+kask6*mr+0i-u$co#t2n+z
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'odisScore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
