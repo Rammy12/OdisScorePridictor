@@ -1,0 +1,1 @@
+web: gunicorn odisScore.wsgi --log-file -

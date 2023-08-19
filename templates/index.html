@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Score Predictor</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cricket.css' %}">
+    <link rel="icon" href="data:,">
+    {% load static %}
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Oswald&family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Cricket Score Predictor</h1>
+        <h5 style="text-align: center;">ODIs International</h5>
+        {% if dict %}
+            <div class="score-container">
+                <div style="display: flex; justify-content: space-between;">
+                    <p style="text-align: left; margin-left: 25px;">Batting Team: {{dict.Batting_team}}</p>
+                    <p style="text-align: right; margin-right: 25px;">Bowling Team: {{dict.Bowling_team}}</p>
+                </div>
+                <div>
+                    <p style="margin-left: 25px;">Score: {{dict.Current_Runs}}/{{dict.wickets}}</p>
+                </div>
+                <div class="result">
+                    <h2 style="color: rgb(131, 245, 121); text-align:center;">Predicted Score:{{dict.result}}</h2>
+                </div>
+            </div>
+        {% endif %}
+        {% if Error %}
+            <h4 style="text-align: center;color: rgb(131, 245, 121);">Error: {{Error}}</h4>
+        {% endif %}
+        {% csrf_token %}
+        <form id="score-predictor-form" method="POST">
+            {% csrf_token %}
+            <label for="batting-team">Batting Team:</label>
+            <select id="batting-team" name="batting_team" required>
+                <option value="" disabled selected>Select Batting Team</option>
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Australia">Australia</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="England">England</option>
+                <option value="India">India</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Scotland">Scotland</option>
+                <option value="South Africa">South Africa</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="West Indies">West Indies</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+                <!-- Add more options as needed -->
+                
+            </select>
+            
+            <label for="bowling-team">Bowling Team:</label>
+            <select id="bowling-team" name="bowling_team" required>
+                <option value="" disabled selected>Select Bowling Team</option>
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Australia">Australia</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="England">England</option>
+                <option value="India">India</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Scotland">Scotland</option>
+                <option value="South Africa">South Africa</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="West Indies">West Indies</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+            </select>
+            
+            <label for="city">City:</label>
+            <select id="city" name="city">
+                <option value="" disabled selected>Select City</option>
+                <option value="Aberdeen">Aberdeen</option>
+                <option value="Abu Dhabi">Abu Dhabi</option>
+                <option value="Adelaide">Adelaide</option>
+                <option value="Ahmedabad">Ahmedabad</option>
+                <option value="Amstelveen">Amstelveen</option>
+                <option value="Antigua">Antigua</option>
+                <option value="Auckland">Auckland</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Barbados">Barbados</option>
+                <option value="Belfast">Belfast</option>
+                <option value="Bengaluru">Bengaluru</option>
+                <option value="Benoni">Benoni</option>
+                <option value="Birmingham">Birmingham</option>
+                <option value="Bloemfontein">Bloemfontein</option>
+                <option value="Bogra">Bogra</option>
+                <option value="Bridgetown">Bridgetown</option>
+                <option value="Brisbane">Brisbane</option>
+                <option value="Bristol">Bristol</option>
+                <option value="Bulawayo">Bulawayo</option>
+                <option value="Cairns">Cairns</option>
+                <option value="Canberra">Canberra</option>
+                <option value="Canterbury">Canterbury</option>
+                <option value="Cape Town">Cape Town</option>
+                <option value="Cardiff">Cardiff</option>
+                <option value="Centurion">Centurion</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chattogram">Chattogram</option>
+                <option value="Chelmsford">Chelmsford</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Chester-le-Street">Chester-le-Street</option>
+                <option value="Chittagong">Chittagong</option>
+                <option value="Christchurch">Christchurch</option>
+                <option value="Colombo">Colombo</option>
+                <option value="Cuttack">Cuttack</option>
+                <option value="Dambulla">Dambulla</option>
+                <option value="Darwin">Darwin</option>
+                <option value="Dehra Dun">Dehra Dun</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Deventer">Deventer</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Doha">Doha</option>
+                <option value="Dominica">Dominica</option>
+                <option value="Dubai">Dubai</option>
+                <option value="Dublin">Dublin</option>
+                <option value="Dunedin">Dunedin</option>
+                <option value="Durban">Durban</option>
+                <option value="East London">East London</option>
+                <option value="Edinburgh">Edinburgh</option>
+                <option value="Faisalabad">Faisalabad</option>
+                <option value="Fatullah">Fatullah</option>
+                <option value="Gqeberha">Gqeberha</option>
+                <option value="Greater Noida">Greater Noida</option>
+                <option value="Grenada">Grenada</option>
+                <option value="Guwahati">Guwahati</option>
+                <option value="Guyana">Guyana</option>
+                <option value="Gwalior">Gwalior</option>
+                <option value="Hambantota">Hambantota</option>
+                <option value="Hamilton">Hamilton</option>
+                <option value="Harare">Harare</option>
+                <option value="Hobart">Hobart</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Indore">Indore</option>
+                <option value="Jaipur">Jaipur</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="Johannesburg">Johannesburg</option>
+                <option value="Kandy">Kandy</option>
+                <option value="Kanpur">Kanpur</option>
+                <option value="Karachi">Karachi</option>
+                <option value="Kimberley">Kimberley</option>
+                <option value="Kingston">Kingston</option>
+                <option value="Kingstown">Kingstown</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Kuala Lumpur">Kuala Lumpur</option>
+                <option value="Lahore">Lahore</option>
+                <option value="Leeds">Leeds</option>
+                <option value="London">London</option>
+                <option value="Lucknow">Lucknow</option>
+                <option value="Manchester">Manchester</option>
+                <option value="Margao">Margao</option>
+                <option value="Melbourne">Melbourne</option>
+                <option value="Mirpur">Mirpur</option>
+                <option value="Mount Maunganui">Mount Maunganui</option>
+                <option value="Multan">Multan</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Nagpur">Nagpur</option>
+                <option value="Napier">Napier</option>
+                <option value="Nelson">Nelson</option>
+                <option value="North Sound">North Sound</option>
+                <option value="Nottingham">Nottingham</option>
+                <option value="Paarl">Paarl</option>
+                <option value="Pallekele">Pallekele</option>
+                <option value="Pearland">Pearland</option>
+                <option value="Perth">Perth</option>
+                <option value="Peshawar">Peshawar</option>
+                <option value="Port Elizabeth">Port Elizabeth</option>
+                <option value="Port of Spain">Port of Spain</option>
+                <option value="Potchefstroom">Potchefstroom</option>
+                <option value="Providence">Providence</option>
+                <option value="Pune">Pune</option>
+                <option value="Queenstown">Queenstown</option>
+                <option value="Rajkot">Rajkot</option>
+                <option value="Ranchi">Ranchi</option>
+                <option value="Rangiri">Rangiri</option>
+                <option value="Rawalpindi">Rawalpindi</option>
+                <option value="Rotterdam">Rotterdam</option>
+                <option value="Sharjah">Sharjah</option>
+                <option value="Southampton">Southampton</option>
+                <option value="St George's">St George's</option>
+                <option value="St Kitts">St Kitts</option>
+                <option value="St Lucia">St Lucia</option>
+                <option value="St Vincent">St Vincent</option>
+                <option value="Sydney">Sydney</option>
+                <option value="Sylhet">Sylhet</option>
+                <option value="Taunton">Taunton</option>
+                <option value="Townsville">Townsville</option>
+                <option value="Trinidad">Trinidad</option>
+                <option value="Utrecht">Utrecht</option>
+                <option value="Vadodara">Vadodara</option>
+                <option value="Visakhapatnam">Visakhapatnam</option>
+                <option value="Wellington">Wellington</option>
+                <option value="Whangarei">Whangarei</option>
+            </select>
+            
+            <label for="current-score">Current Score:</label>
+            <input type="number" id="current-score" name="current_score" required placeholder="Enter Current Score">
+            
+            <label for="overs">Overs:</label>
+            <input type="number" id="overs" name="overs" step="0.1" required placeholder="Enter Overs">
+            
+            <label for="wickets">Wickets:</label>
+            <input type="number" id="wickets" name="wickets" required placeholder="Enter Wickets">
+            
+            <label for="last-ten">Last TEn Overs Score:</label>
+            <input type="text" id="last-ten" name="last_ten" required placeholder="Enter Last Ten Overs Score">
+            
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
